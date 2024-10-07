@@ -1,17 +1,26 @@
 <script setup>
+import Form2 from './components/Form2.vue'
 import Form from './components/Form.vue'
+
+
 
 </script>
 
 <template>
+  <h1>Первое задание</h1>
   <Form/>
+  <h1>Второе задание</h1>
+  <Form2/>
+
 </template>
 
 <style scoped>
 header {
   line-height: 1.5;
 }
-
+h1{
+  text-align: center;
+}
 .logo {
   display: block;
   margin: 0 auto 2rem;

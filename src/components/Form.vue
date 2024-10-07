@@ -1,44 +1,45 @@
 <template>
-  <form @submit.prevent="addUser">
-    <label>Имя</label><input type="text" v-model="newUser.name">
-    <label>Фамилия</label><input type="text" v-model="newUser.surname">
-    <label>Почта</label><input type="email" v-model="newUser.email">
-    <label>Телефон</label><input type="text" v-model="newUser.phone">
-    <label>Работа</label>
-    <select v-model="newUser.job">
-      <option v-for="job in jobs" :key="job">{{ job }}</option>
-    </select><br>
-    <button type="submit">Добавить</button>
-    <p v-if="error" style="color: red;">{{ error }}</p>
-  </form>
-  <!-- =============================================================== -->
-  <br>
-  <hr>
-  <h3>Список сотрудников:</h3>
-  <hr>
-  <div class="usercard-container">
-    <div v-for="user in users" :key="user.id" class="usercard">
-      <template v-if="!user.isEdit">
-        <img src="https://gemrussia.ru/upload/uf/fec/mho2ptc16yvwyor9dy1h3zjupxxrgk24.png" alt="ava"
-          class="user-avatar">
-        <h2>{{ user.name }}</h2>
-        <h2>{{ user.surname }}</h2>
-        <p>{{ user.email }}</p>
-        <p>{{ user.phone }}</p>
-        <p>{{ user.job }}</p>
-        <button @click="editUser(user)" class="edit-btn">Edit</button>
-      </template>
-      <template v-if="user.isEdit">
-        <input type="text" v-model="user.name" placeholder="Имя"> <br>
-        <input type="text" v-model="user.surname" placeholder="Фамилия"><br>
-        <input type="email" v-model="user.email" placeholder="Почта"><br>
-        <input type="text" v-model="user.phone" placeholder="Телефон"><br>
-        <select v-model="user.job">
-          <option v-for="job in jobs" :key="job">{{ job }}</option>
-        </select><br>
-        <button @click="saveUser(user)" class="save-btn">Save</button>
-      </template>
-      <button @click="deleteUser(user)" class="del-btn"> Удалить </button>
+  <div class="wrapper">
+    <form @submit.prevent="addUser">
+      <label>Имя</label><input type="text" v-model="newUser.name">
+      <label>Фамилия</label><input type="text" v-model="newUser.surname">
+      <label>Почта</label><input type="email" v-model="newUser.email">
+      <label>Телефон</label><input type="text" v-model="newUser.phone">
+      <label>Работа</label>
+      <select v-model="newUser.job">
+        <option v-for="job in jobs" :key="job">{{ job }}</option>
+      </select><br>
+      <button type="submit">Добавить</button>
+      <p v-if="error" style="color: red;">{{ error }}</p>
+    </form>
+
+
+    <!-- =============================================================== -->
+    <h3>Список сотрудников:</h3>
+    <div class="usercard-container">
+      <div v-for="user in users" :key="user.id" class="usercard">
+        <template v-if="!user.isEdit">
+          <img src="https://gemrussia.ru/upload/uf/fec/mho2ptc16yvwyor9dy1h3zjupxxrgk24.png" alt="ava"
+            class="user-avatar">
+          <h2>{{ user.name }}</h2>
+          <h2>{{ user.surname }}</h2>
+          <p>{{ user.email }}</p>
+          <p>{{ user.phone }}</p>
+          <p>{{ user.job }}</p>
+          <button @click="editUser(user)" class="edit-btn">Edit</button>
+        </template>
+        <template v-if="user.isEdit">
+          <input type="text" v-model="user.name" placeholder="Имя"> <br>
+          <input type="text" v-model="user.surname" placeholder="Фамилия"><br>
+          <input type="email" v-model="user.email" placeholder="Почта"><br>
+          <input type="text" v-model="user.phone" placeholder="Телефон"><br>
+          <select v-model="user.job">
+            <option v-for="job in jobs" :key="job">{{ job }}</option>
+          </select><br>
+          <button @click="saveUser(user)" class="save-btn">Save</button>
+        </template>
+        <button @click="deleteUser(user)" class="del-btn"> Удалить </button>
+      </div>
     </div>
   </div>
   <!-- <img src="https://media.tenor.com/U6CsNK6Qy7QAAAAi/tf2-spy.gif" alt=""> -->
@@ -135,7 +136,10 @@ export default {
       user.isEdit = false;
     },
     deleteUser(user) {
-      this.users.splice(user, 1)
+      const index = this.users.indexOf(user);
+      if (index !== -1) {
+        this.users.splice(index, 1);
+      }
     },
   }
 };
@@ -144,6 +148,14 @@ export default {
 
 
 <style scoped>
+.wrapper {
+  width: 900px;
+  background: rgb(191, 195, 245);
+  color: black;
+  padding: 20px;
+  margin: 0 auto;
+}
+
 .usercard {
   background-color: rgb(255, 255, 255);
   width: 200px;
@@ -184,7 +196,7 @@ button {
 }
 
 form {
-  background-color: #15172b;
+  background-color: #ffffff;
   border-radius: 20px;
   box-sizing: border-box;
   padding: 20px;
@@ -192,5 +204,10 @@ form {
   display: grid;
   grid-template-columns: 20% 80%;
   row-gap: 10px;
+}
+
+table {
+  color: white;
+
 }
 </style>
